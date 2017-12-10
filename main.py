@@ -3,6 +3,10 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 import requests
+import os.path
+from datetime import datetime
+import csv
+import os
 import bs4
 import re
 
@@ -34,13 +38,13 @@ def returnReviewCount(page):
 
 def returnUsedPrice(page):
 	try:
-		return str(page.select(".olp-used .a-link-normal")[0].getText()).partition('$')[2]
+		return '${:,.2f}'.format(float(str(page.select(".olp-used .a-link-normal")[0].getText()).partition('$')[2]))
 	except:
 		return ""
 
 def returnNewPrice(page):
 	try:
-		return str(page.select('.olp-new .a-link-normal')[0].getText()).partition('$')[2]
+		return '${:,.2f}'.format(float(str(page.select('.olp-new .a-link-normal')[0].getText()).partition('$')[2]))
 	except:
 		return ""
 
@@ -52,7 +56,7 @@ def returnProductDetails(page):
 
 def returnTradeIn(page):
 	try:
-		return page.select("#tradeInButton_tradeInValue")[0].getText().strip().replace('$', '')
+		return '${:,.2f}'.format(float(page.select("#tradeInButton_tradeInValue")[0].getText().strip().replace('$', '')))
 	except:
 		return ""
 
@@ -109,7 +113,35 @@ def returnInfo(barCode):
 	information['bookRank'] = returnSpecificSalesRank(page).strip()
 	return information
 
+def updateCSV(dictionary, saveAs):
+	with open(saveAs, "a") as fp:
+		wr = csv.writer(fp, dialect='excel')
+		list1 = [dictionary['itemNumber'], dictionary['bookTitle'], dictionary['usedPrice'], dictionary['newPrice'], dictionary['reviewCount'], dictionary['bookPublisher'], dictionary['itemWeight'], dictionary['salesRank'], dictionary['bookRank'], dictionary['bookCondition'], dictionary['Timestamp']]
+		wr.writerow(list1)
 
-while True:
-	barCode = raw_input("Enter Barcode: ")
-	print returnInfo(barCode)
+if __name__ == '__main__':
+	if raw_input("Enter Book Condition? [Y/N] ").lower() == 'y':
+		bookCondition = True
+	else:
+		bookCondition = False
+	saveAs = raw_input("Save As: ")
+	if '.csv' not in saveAs.lower():
+		saveAs = saveAs + '.csv'
+	mode = 'a' if os.path.exists(saveAs) else 'w'
+	if mode == 'w':
+		with open(saveAs, "a") as fp:
+			wr = csv.writer(fp, dialect='excel')
+			wr.writerow(['Item Number', 'Book Title', 'Used Price', 'New Price', 'Review Count', 'Publisher', 'Item Weight', 'Sales Rank', 'Book Rank', 'Condition', 'Timestamp'])
+			wr.writerow([])
+	while True:
+		barCode = raw_input("Enter Barcode: ")
+		if len(barCode) == 0:
+			break
+		info = returnInfo(barCode)
+		print info
+		if bookCondition == True:
+			info['bookCondition'] = raw_input("Condition: ")
+		else:
+			info['bookCondition'] = ''
+		info['Timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+		updateCSV(info, saveAs)
