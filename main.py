@@ -2,8 +2,6 @@ import requests
 import bs4
 import re
 
-def genURL(itemNum):
-	return 'https://www.amazon.com/dp/{}'.format(itemNum)
 
 def findItemPage(barCode):
 	headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
@@ -11,5 +9,6 @@ def findItemPage(barCode):
 	res = requests.get(url, headers=headers)
 	page = bs4.BeautifulSoup(res.text, 'lxml')
 	itemNum = re.findall('/dp/(\S+)/', str(page.select('.a-col-right')))[0].partition('/')[0]
-	print itemNum
+	return 'https://www.amazon.com/dp/{}'.format(itemNum)
+
 findItemPage('9780470769058')
