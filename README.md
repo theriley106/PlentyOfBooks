@@ -23,7 +23,7 @@
 
 ```pip install -r requirements.txt```
 
-#### To start the application, run the following command from the goodwillAribtrage directory:
+#### To start the application, run the following command from the PlentyOfBooks directory:
 
 ```python main.py```
 
