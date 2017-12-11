@@ -35,7 +35,7 @@ While this does allow you to input barcodes by hand, it is SIGNIFICANTLY faster 
 
 I recommend this scanner:
 
-[![N|Solid](src/scanner.jpg)](https://www.amazon.com/Automatic-Barcode-Scanning-Bar-code-Adjustable/dp/B00406YZGK/ref=sr_1_1?s=offic-electronics&ie=UTF8&qid=1513031099&sr=1-1&keywords=barcode+scanner)
+[![N|Solid](src/scanner.jpg =250x)](https://www.amazon.com/Automatic-Barcode-Scanning-Bar-code-Adjustable/dp/B00406YZGK/ref=sr_1_1?s=offic-electronics&ie=UTF8&qid=1513031099&sr=1-1&keywords=barcode+scanner)
 
 [It can be purchased for ~$20 from Amazon](https://www.amazon.com/Automatic-Barcode-Scanning-Bar-code-Adjustable/dp/B00406YZGK/ref=sr_1_1?s=offic-electronics&ie=UTF8&qid=1513031099&sr=1-1&keywords=barcode+scanner).
 
