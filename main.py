@@ -6,6 +6,7 @@ import requests
 import os.path
 from datetime import datetime
 import csv
+import time
 import os
 import bs4
 import re
@@ -134,14 +135,18 @@ if __name__ == '__main__':
 			wr.writerow(['Item Number', 'Book Title', 'Used Price', 'New Price', 'Review Count', 'Publisher', 'Item Weight', 'Sales Rank', 'Book Rank', 'Condition', 'Timestamp'])
 			wr.writerow([])
 	while True:
-		barCode = raw_input("Enter Barcode: ")
-		if len(barCode) == 0:
-			break
-		info = returnInfo(barCode)
-		print info
-		if bookCondition == True:
-			info['bookCondition'] = raw_input("Condition: ")
-		else:
-			info['bookCondition'] = ''
-		info['Timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-		updateCSV(info, saveAs)
+		try:
+			barCode = raw_input("Enter Barcode: ")
+			if len(barCode) == 0:
+				break
+			info = returnInfo(barCode)
+			print info
+			if bookCondition == True:
+				info['bookCondition'] = raw_input("Condition: ")
+			else:
+				info['bookCondition'] = ''
+			info['Timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+			updateCSV(info, saveAs)
+		except:
+			print("Book not found...")
+			time.sleep(.5)
