@@ -149,4 +149,4 @@ if __name__ == '__main__':
 			updateCSV(info, saveAs)
 		except:
 			print("Book not found...")
-			time.sleep(.5)
+			time.sleep(.3)
