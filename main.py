@@ -37,6 +37,7 @@ def returnCategories(page):
 		for val in page.select(".zg_hrsr_ladder"):
 			for r in var.getText().split(' > ')[1:]:
 				a.append(r)
+		a = list(set(a))
 		return ", ".join(a)
 	except:
 		return ""
