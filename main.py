@@ -123,12 +123,13 @@ def returnInfo(barCode):
 	information['itemWeight'] = returnWeight(page).strip()
 	information['salesRank'] = returnOverallSalesRank(page).strip()
 	information['bookRank'] = returnSpecificSalesRank(page).strip()
+	information['categories'] = returnCategories(page).strip()
 	return information
 
 def updateCSV(dictionary, saveAs):
 	with open(saveAs, "a") as fp:
 		wr = csv.writer(fp, dialect='excel')
-		list1 = [dictionary['itemNumber'], dictionary['bookTitle'], dictionary['usedPrice'], dictionary['newPrice'], dictionary['reviewCount'], dictionary['bookPublisher'], dictionary['itemWeight'], dictionary['salesRank'], dictionary['bookRank'], dictionary['bookCondition'], dictionary['Timestamp']]
+		list1 = [dictionary['itemNumber'], dictionary['bookTitle'], dictionary['usedPrice'], dictionary['newPrice'], dictionary['reviewCount'], dictionary['bookPublisher'], dictionary['itemWeight'], dictionary['salesRank'], dictionary['bookRank'], dictionary['bookCondition'], dictionary['categories'], dictionary['Timestamp']]
 		wr.writerow(list1)
 
 if __name__ == '__main__':
@@ -143,7 +144,7 @@ if __name__ == '__main__':
 	if mode == 'w':
 		with open(saveAs, "a") as fp:
 			wr = csv.writer(fp, dialect='excel')
-			wr.writerow(['Item Number', 'Book Title', 'Used Price', 'New Price', 'Review Count', 'Publisher', 'Item Weight', 'Sales Rank', 'Book Rank', 'Condition', 'Timestamp'])
+			wr.writerow(['Item Number', 'Book Title', 'Used Price', 'New Price', 'Review Count', 'Publisher', 'Item Weight', 'Sales Rank', 'Book Rank', 'Condition', 'Genre', 'Timestamp'])
 			wr.writerow([])
 	while True:
 		try:
