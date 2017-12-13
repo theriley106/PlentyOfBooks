@@ -31,6 +31,16 @@ def returnTitle(page):
 	except:
 		return ""
 
+def returnCategories(page):
+	try:
+		a = []
+		for val in page.select(".zg_hrsr_ladder"):
+			for r in var.getText().split(' > ')[1:]:
+				a.append(r)
+		return ", ".join(a)
+	except:
+		return ""
+
 def returnReviewCount(page):
 	try:
 		return stripNumber(page.select('#acrCustomerReviewText')[0].getText())
