@@ -35,11 +35,12 @@ def returnCategories(page):
 	try:
 		a = []
 		for val in page.select(".zg_hrsr_ladder"):
-			for r in var.getText().split(' > ')[1:]:
+			for r in val.getText().split(' > ')[1:]:
 				a.append(r)
 		a = list(set(a))
 		return ", ".join(a)
-	except:
+	except Exception as exp:
+		print exp
 		return ""
 
 def returnReviewCount(page):
@@ -144,7 +145,7 @@ if __name__ == '__main__':
 	if mode == 'w':
 		with open(saveAs, "a") as fp:
 			wr = csv.writer(fp, dialect='excel')
-			wr.writerow(['Item Number', 'Book Title', 'Used Price', 'New Price', 'Review Count', 'Publisher', 'Item Weight', 'Sales Rank', 'Book Rank', 'Condition', 'Genre', 'Timestamp'])
+			wr.writerow(['Item Number', 'Book Title', 'Used Price', 'New Price', 'Review Count', 'Publisher', 'Item Weight', 'Sales Rank', 'Book Rank', 'Genre', 'Timestamp'])
 			wr.writerow([])
 	while True:
 		try:
